@@ -1,0 +1,218 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: rgba(72, 163, 0, 0.07);
+  /* background-color: #0c192c; */
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+main {
+  padding: 0 16px 32px;
+}
+.title {
+  color: #48a300;
+  font-size: 54px;
+  text-align: center;
+}
+.subtitle {
+  display: flex;
+}
+.title span {
+  color: #61481c;
+}
+.loader span {
+  font-size: 36px;
+  display: inline-block;
+  position: relative;
+  color: #61481c;
+  gap: 0;
+  /* text-transform: uppercase; */
+  animation: animate 8s ease-in-out infinite;
+  animation-delay: calc(0.2s * var(--i));
+}
+@keyframes animate {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0px);
+  }
+  20% {
+    transform: translateY(-10px);
+  }
+}
+.app-conatiner {
+  position: relative;
+  background-color: #fbfbfb;
+  max-width: 660px;
+  margin-inline: auto;
+  border-radius: 15px;
+  padding: 32px 42px;
+  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+.sun-icon {
+  vertical-align: middle;
+  margin-left: 16px;
+  animation: linear 12s infinite linear;
+}
+.sun-icon:hover {
+  background-color: #48a300;
+  border-radius: 50%;
+}
+@keyframes linear {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+.progress-label {
+  font-size: 14px;
+  color: #858585;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.progress-bar {
+  height: 30px;
+  background-color: rgba(72, 163, 0, 0.1);
+  border-radius: 15px;
+  margin-bottom: 42px;
+}
+.progress-value {
+  height: 100%;
+  background-color: #48a300;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #eeffe0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 0;
+  transition: width 0.9s ease-in-out;
+}
+.progress-value span {
+  padding-left: 20px;
+  min-width: max-content;
+}
+.error-label {
+  display: none;
+  font-size: 12px;
+  color: #ff5151;
+  margin-top: 4px;
+}
+.Show {
+  display: block;
+}
+.goal-container {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 17px;
+  height: 82px;
+  align-items: center;
+  padding: 0 22px;
+  display: flex;
+  background-color: #ffffff;
+  margin-bottom: 42px;
+}
+.custom-checkbox {
+  height: 24px;
+  width: 24px;
+  border: 2px solid rgba(97, 72, 28, 0.3);
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-checkbox:hover {
+  border-color: #61481c;
+}
+.completed .custom-checkbox {
+  background-color: #48a300;
+  border-color: #48a300;
+}
+.completed .custom-checkbox:hover {
+  border-color: #61481c;
+}
+.goal-input {
+  border: none;
+  outline: none;
+  padding-left: 22px;
+  font-family: inherit;
+  font-size: 16px;
+  width: 100%;
+  align-self: stretch;
+  font-weight: 500;
+}
+.goal-input::placeholder {
+  color: #d9d9d9;
+}
+.completed .goal-input {
+  color: #48a300;
+  text-decoration: line-through;
+}
+.progress-label {
+  transition: 0.2s ease-in-out;
+}
+.quote {
+  font-weight: 500;
+  text-align: center;
+  font-size: 16px;
+}
+.made-with {
+  font-weight: 500;
+  font-size: 12px;
+  text-align: center;
+  color: #858585;
+  margin-top: 64px;
+}
+.tick {
+  display: none;
+}
+.completed .tick {
+  display: block;
+}
+@media (max-width: 768px) {
+  .title {
+    font-size: 32px;
+  }
+  .app-conatiner {
+    padding: 16px 32px;
+  }
+  .goal-container {
+    height: 64px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+  }
+  .quote {
+    font-size: 12px;
+  }
+  .custom-checkbox {
+    height: 16px;
+    width: 16px;
+  }
+  .goal-input::placeholder {
+    font-size: 12px;
+  }
+  .made-with {
+    margin-top: 32px;
+  }
+  .progress-bar {
+    height: 20px;
+  }
+  .progress-value {
+    font-size: 10px;
+  }
+}
+@media (max-width: 350px) {
+  .loader span {
+    font-size: 20px;
+  }
+}
