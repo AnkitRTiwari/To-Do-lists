@@ -5,6 +5,7 @@ const progressBar = document.querySelector(".progress-bar");
 const progressValue = document.querySelector(".progress-value");
 const progressLabel = document.querySelector(".progress-label");
 const quote = document.querySelector(".quote");
+const todayDate = document.querySelector(".today-date");
 
 const quoteList = [
   "Move One Step Ahead, Today!",
@@ -34,34 +35,61 @@ const allGoals = JSON.parse(localStorage.getItem("allGoals")) || {
     completed: false,
   },
 };
-let completedGoals = Object.values(allGoals).filter(
-  (goal) => goal.completed
-).length;
-progressValue.firstElementChild.innerText = `${completedGoals}/3 completed`;
-progressValue.style.width = `${(completedGoals / 3) * 100}%`;
-progressLabel.innerText = allQuotes[`${completedGoals}`];
-quote.innerText = quoteList[`${completedGoals}`];
+
+todayDate.innerText = new Date().toLocaleDateString(undefined, {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+});
+
+const updateProgress = () => {
+  const completedGoals = Object.values(allGoals).filter(
+    (goal) => goal.completed
+  ).length;
+  progressValue.style.width = `${(completedGoals / 3) * 100}%`;
+  progressValue.firstElementChild.innerText = `${completedGoals}/3 completed`;
+  progressBar.dataset.count = completedGoals;
+  progressLabel.innerText = allQuotes[completedGoals];
+  quote.innerText = quoteList[completedGoals];
+};
+
+const showError = () => {
+  errorLabel.classList.remove("Show");
+  // Force reflow so the shake animation replays on repeated clicks
+  void errorLabel.offsetWidth;
+  errorLabel.classList.add("Show");
+};
+
+updateProgress();
 
 checkBoxList.forEach((checkbox) => {
-  checkbox.addEventListener("click", (e) => {
+  const toggleGoal = () => {
     const allGoalsAdded = [...inputFields].every((input) => {
-      return input.value;
+      return input.value.trim();
     });
 
     if (allGoalsAdded) {
-      checkbox.parentElement.classList.toggle("completed");
       const inputId = checkbox.nextElementSibling.id;
       allGoals[inputId].completed = !allGoals[inputId].completed;
-      completedGoals = Object.values(allGoals).filter(
-        (goal) => goal.completed
-      ).length;
-      progressValue.style.width = `${(completedGoals / 3) * 100}%`;
+      checkbox.parentElement.classList.toggle(
+        "completed",
+        allGoals[inputId].completed
+      );
+      checkbox.setAttribute("aria-checked", allGoals[inputId].completed);
+      // Completed goals are locked from editing until unchecked
+      checkbox.nextElementSibling.readOnly = allGoals[inputId].completed;
       localStorage.setItem("allGoals", JSON.stringify(allGoals));
-      progressValue.firstElementChild.innerText = `${completedGoals}/3 completed`;
-      progressLabel.innerText = allQuotes[`${completedGoals}`];
-      quote.innerText = quoteList[`${completedGoals}`];
+      updateProgress();
     } else {
-      errorLabel.classList.add("Show");
+      showError();
+    }
+  };
+
+  checkbox.addEventListener("click", toggleGoal);
+  checkbox.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleGoal();
     }
   });
 });
@@ -71,6 +99,8 @@ inputFields.forEach((input) => {
 
   if (allGoals[input.id].completed) {
     input.parentElement.classList.add("completed");
+    input.previousElementSibling.setAttribute("aria-checked", "true");
+    input.readOnly = true;
   }
   input.addEventListener("focus", () => {
     errorLabel.classList.remove("Show");

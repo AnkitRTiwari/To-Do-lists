@@ -1,218 +1,361 @@
+:root {
+  --green: #48a300;
+  --green-dark: #3a8500;
+  --green-soft: rgba(72, 163, 0, 0.12);
+  --brown: #61481c;
+  --bg: #f3f8ee;
+  --bg-accent: rgba(72, 163, 0, 0.14);
+  --card: #ffffff;
+  --goal-bg: #fafcf8;
+  --text: #1f2a17;
+  --muted: #7a8472;
+  --placeholder: #b9c0b2;
+  --border: rgba(31, 42, 23, 0.1);
+  --error: #e5484d;
+  --shadow: 0 1px 2px rgba(31, 42, 23, 0.04),
+    0 12px 40px -12px rgba(31, 42, 23, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --green: #6cc72a;
+    --green-dark: #5bb31c;
+    --green-soft: rgba(108, 199, 42, 0.16);
+    --brown: #e3c48e;
+    --bg: #0f140c;
+    --bg-accent: rgba(108, 199, 42, 0.1);
+    --card: #182013;
+    --goal-bg: #1d2717;
+    --text: #e8eee3;
+    --muted: #97a38d;
+    --placeholder: #5d6955;
+    --border: rgba(232, 238, 227, 0.1);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 40px -12px rgba(0, 0, 0, 0.6);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
+
 body {
-  background-color: rgba(72, 163, 0, 0.07);
-  /* background-color: #0c192c; */
+  background-color: var(--bg);
+  background-image: radial-gradient(
+      circle at 15% 0%,
+      var(--bg-accent),
+      transparent 45%
+    ),
+    radial-gradient(circle at 85% 100%, var(--bg-accent), transparent 45%);
+  background-attachment: fixed;
+  color: var(--text);
   font-family: "Poppins", sans-serif;
   margin: 0;
+  min-height: 100vh;
   scroll-behavior: smooth;
 }
 
 main {
-  padding: 0 16px 32px;
+  padding: 40px 16px 32px;
 }
+
+/* ---------- Heading ---------- */
 .title {
-  color: #48a300;
-  font-size: 54px;
+  color: var(--green);
+  font-size: clamp(32px, 7vw, 54px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
   text-align: center;
-}
-.subtitle {
-  display: flex;
+  margin: 0 0 28px;
 }
 .title span {
-  color: #61481c;
+  color: var(--brown);
 }
+
+/* ---------- Card ---------- */
+.app-container {
+  position: relative;
+  background-color: var(--card);
+  max-width: 620px;
+  margin-inline: auto;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 36px 40px 32px;
+  box-shadow: var(--shadow);
+  z-index: 2;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.subtitle {
+  margin: 0;
+  line-height: 1.1;
+}
+.today-date {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .loader span {
   font-size: 36px;
+  font-weight: 600;
   display: inline-block;
   position: relative;
-  color: #61481c;
-  gap: 0;
-  /* text-transform: uppercase; */
-  animation: animate 8s ease-in-out infinite;
+  color: var(--brown);
+  animation: bounce 8s ease-in-out infinite;
   animation-delay: calc(0.2s * var(--i));
 }
-@keyframes animate {
+@keyframes bounce {
   0%,
   40%,
   100% {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
   20% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
-.app-conatiner {
-  position: relative;
-  background-color: #fbfbfb;
-  max-width: 660px;
-  margin-inline: auto;
-  border-radius: 15px;
-  padding: 32px 42px;
-  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.1);
-  z-index: 2;
-}
+
 .sun-icon {
-  vertical-align: middle;
-  margin-left: 16px;
-  animation: linear 12s infinite linear;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  animation: spin 16s linear infinite;
+  filter: drop-shadow(0 4px 12px rgba(255, 196, 0, 0.35));
 }
-.sun-icon:hover {
-  background-color: #48a300;
-  border-radius: 50%;
-}
-@keyframes linear {
-  from {
-    transform: rotate(0deg);
-  }
+@keyframes spin {
   to {
-    transform: rotate(359deg);
+    transform: rotate(360deg);
   }
 }
+
+/* ---------- Progress ---------- */
 .progress-label {
   font-size: 14px;
-  color: #858585;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
+  color: var(--muted);
+  margin: 0 0 10px;
+  transition: 0.2s ease-in-out;
 }
+.progress-label::first-letter {
+  text-transform: uppercase;
+}
+
 .progress-bar {
-  height: 30px;
-  background-color: rgba(72, 163, 0, 0.1);
-  border-radius: 15px;
-  margin-bottom: 42px;
+  position: relative;
+  height: 28px;
+  background-color: var(--green-soft);
+  border-radius: 999px;
+  overflow: hidden;
 }
 .progress-value {
   height: 100%;
-  background-color: #48a300;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #eeffe0;
+  width: 0;
+  background: linear-gradient(90deg, var(--green-dark), var(--green));
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Label sits centered over the whole track so "0/3" is always visible */
+.progress-value span {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  width: 0;
-  transition: width 0.9s ease-in-out;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green);
+  transition: color 0.3s;
 }
-.progress-value span {
-  padding-left: 20px;
-  min-width: max-content;
+.progress-bar[data-count="2"] .progress-value span,
+.progress-bar[data-count="3"] .progress-value span {
+  color: #fff;
 }
+
 .error-label {
   display: none;
-  font-size: 12px;
-  color: #ff5151;
-  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--error);
+  margin: 10px 0 0;
+}
+.error-label::before {
+  content: "⚠ ";
 }
 .Show {
   display: block;
+  animation: shake 0.35s ease-in-out;
 }
-.goal-container {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 17px;
-  height: 82px;
-  align-items: center;
-  padding: 0 22px;
+@keyframes shake {
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+/* ---------- Goals ---------- */
+.goal-list {
   display: flex;
-  background-color: #ffffff;
-  margin-bottom: 42px;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
 }
+
+.goal-container {
+  display: flex;
+  align-items: center;
+  height: 72px;
+  padding: 0 22px;
+  background-color: var(--goal-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+.goal-container:hover {
+  border-color: rgba(72, 163, 0, 0.35);
+}
+.goal-container:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px var(--green-soft);
+}
+.goal-container.completed {
+  background-color: var(--green-soft);
+  border-color: transparent;
+}
+
 .custom-checkbox {
-  height: 24px;
-  width: 24px;
-  border: 2px solid rgba(97, 72, 28, 0.3);
+  height: 26px;
+  width: 26px;
+  border: 2px solid var(--placeholder);
   border-radius: 50%;
   flex-shrink: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.15s;
 }
 .custom-checkbox:hover {
-  border-color: #61481c;
+  border-color: var(--green);
+}
+.custom-checkbox:active {
+  transform: scale(0.88);
+}
+.custom-checkbox:focus-visible {
+  outline: 3px solid var(--green-soft);
+  outline-offset: 2px;
+  border-color: var(--green);
 }
 .completed .custom-checkbox {
-  background-color: #48a300;
-  border-color: #48a300;
+  background-color: var(--green);
+  border-color: var(--green);
 }
-.completed .custom-checkbox:hover {
-  border-color: #61481c;
+
+.tick {
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.2s, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+.completed .tick {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .goal-input {
   border: none;
   outline: none;
-  padding-left: 22px;
+  background: transparent;
+  color: var(--text);
+  padding-left: 18px;
   font-family: inherit;
   font-size: 16px;
+  font-weight: 500;
   width: 100%;
   align-self: stretch;
-  font-weight: 500;
+  transition: color 0.2s;
 }
 .goal-input::placeholder {
-  color: #d9d9d9;
+  color: var(--placeholder);
+  font-weight: 400;
 }
 .completed .goal-input {
-  color: #48a300;
+  color: var(--muted);
   text-decoration: line-through;
+  text-decoration-color: var(--green);
+  text-decoration-thickness: 2px;
 }
-.progress-label {
-  transition: 0.2s ease-in-out;
-}
+
+/* ---------- Footer ---------- */
 .quote {
   font-weight: 500;
+  font-style: italic;
   text-align: center;
   font-size: 16px;
+  color: var(--brown);
+  margin: 32px 0 0;
 }
 .made-with {
-  font-weight: 500;
   font-size: 12px;
   text-align: center;
-  color: #858585;
-  margin-top: 64px;
+  color: var(--muted);
+  margin-top: 24px;
 }
-.tick {
-  display: none;
-}
-.completed .tick {
-  display: block;
-}
+
+/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  .title {
-    font-size: 32px;
+  main {
+    padding-top: 24px;
   }
-  .app-conatiner {
-    padding: 16px 32px;
+  .title {
+    margin-bottom: 20px;
+  }
+  .app-container {
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+  .loader span {
+    font-size: 28px;
+  }
+  .sun-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .goal-list {
+    gap: 12px;
+    margin-top: 24px;
   }
   .goal-container {
-    height: 64px;
-    margin-bottom: 24px;
-    border-radius: 12px;
+    height: 60px;
+    padding: 0 16px;
+    border-radius: 14px;
+  }
+  .goal-input {
+    font-size: 15px;
+    padding-left: 14px;
   }
   .quote {
-    font-size: 12px;
-  }
-  .custom-checkbox {
-    height: 16px;
-    width: 16px;
-  }
-  .goal-input::placeholder {
-    font-size: 12px;
-  }
-  .made-with {
-    margin-top: 32px;
-  }
-  .progress-bar {
-    height: 20px;
-  }
-  .progress-value {
-    font-size: 10px;
+    font-size: 14px;
+    margin-top: 24px;
   }
 }
+
 @media (max-width: 350px) {
   .loader span {
-    font-size: 20px;
+    font-size: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

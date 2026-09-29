@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#48a300" />
     <title>Focus on Today</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -17,64 +18,95 @@
   <body>
     <main>
       <h1 class="title">Focus on <span>Today</span></h1>
-      <div class="app-conatiner">
-        <h2 class="subtitle">
-          <div class="loader">
-            <span style="--i: 1">T</span>
-            <span style="--i: 2">o</span>
-            <span style="--i: 3">d</span>
-            <span style="--i: 4">a</span>
-            <span style="--i: 5">y</span>
+      <div class="app-container">
+        <header class="app-header">
+          <div>
+            <h2 class="subtitle">
+              <div class="loader" aria-label="Today">
+                <span style="--i: 1">T</span>
+                <span style="--i: 2">o</span>
+                <span style="--i: 3">d</span>
+                <span style="--i: 4">a</span>
+                <span style="--i: 5">y</span>
+              </div>
+            </h2>
+            <p class="today-date"></p>
           </div>
           <img
             src="./images/🦆 icon _Sun_.svg"
-            alt="sun image"
+            alt=""
             class="sun-icon"
           />
-        </h2>
+        </header>
+
         <p class="progress-label">Raise the bar by completing your goals!</p>
         <div class="progress-bar">
           <div class="progress-value">
             <span></span>
           </div>
-          <p class="error-label">**Please set all 3 goals**</p>
         </div>
-        <div class="goal-container">
-          <div class="custom-checkbox">
-            <img src="./images/tick.svg" alt="tick" class="tick" />
+        <p class="error-label" role="alert">Please set all 3 goals first</p>
+
+        <div class="goal-list">
+          <div class="goal-container">
+            <div
+              class="custom-checkbox"
+              role="checkbox"
+              aria-checked="false"
+              aria-label="Mark goal 1 as completed"
+              tabindex="0"
+            >
+              <img src="./images/tick.svg" alt="" class="tick" />
+            </div>
+            <input
+              id="first"
+              class="goal-input"
+              type="text"
+              placeholder="Add your first goal…"
+              aria-label="Goal 1"
+            />
           </div>
-          <input
-            id="first"
-            class="goal-input"
-            type="text"
-            placeholder="Add new Goal"
-          />
-        </div>
-        <div class="goal-container">
-          <div class="custom-checkbox">
-            <img src="./images/tick.svg" alt="tick" class="tick" />
+          <div class="goal-container">
+            <div
+              class="custom-checkbox"
+              role="checkbox"
+              aria-checked="false"
+              aria-label="Mark goal 2 as completed"
+              tabindex="0"
+            >
+              <img src="./images/tick.svg" alt="" class="tick" />
+            </div>
+            <input
+              id="second"
+              class="goal-input"
+              type="text"
+              placeholder="Add your second goal…"
+              aria-label="Goal 2"
+            />
           </div>
-          <input
-            id="second"
-            class="goal-input"
-            type="text"
-            placeholder="Add new Goal"
-          />
-        </div>
-        <div class="goal-container">
-          <div class="custom-checkbox">
-            <img src="./images/tick.svg" alt="tick" class="tick" />
+          <div class="goal-container">
+            <div
+              class="custom-checkbox"
+              role="checkbox"
+              aria-checked="false"
+              aria-label="Mark goal 3 as completed"
+              tabindex="0"
+            >
+              <img src="./images/tick.svg" alt="" class="tick" />
+            </div>
+            <input
+              id="third"
+              class="goal-input"
+              type="text"
+              placeholder="Add your third goal…"
+              aria-label="Goal 3"
+            />
           </div>
-          <input
-            id="third"
-            class="goal-input"
-            type="text"
-            placeholder="Add new Goal"
-          />
         </div>
+
         <p class="quote">"Move One Step Ahead, Today!"</p>
-        <p class="made-with">Made with 💙 by Ankit Tiwari</p>
       </div>
+      <p class="made-with">Made with 💙 by Ankit Tiwari</p>
     </main>
   </body>
 </html>
